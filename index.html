@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hydrogel Auto‑Injector — Capstone</title>
+  <meta name="description" content="Capstone project: portable auto‑injector‑style device delivering an injectable hydrogel scaffold for skeletal muscle regeneration.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%234f46e5'/%3E%3Cpath d='M30 60 L50 30 L70 60 Z' fill='white'/%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* tiny helper for muted text */
+    .text-muted-foreground{ color:#6b7280 }
+    *:focus-visible{ outline:2px solid #4f46e5; outline-offset:2px }
+    html{ scroll-behavior:smooth }
+  </style>
+</head>
+<body class="min-h-screen bg-white text-slate-900">
+  <div id="root"></div>
+
+  <!-- React 18 UMD + Babel for JSX in-browser (ok for demos) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Badge({ children }) {
+      return (
+        <span className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide">
+          {children}
+        </span>
+      );
+    }
+
+    function Stat({ label, value }) {
+      return (
+        <div className="rounded-2xl border p-4 text-center">
+          <div className="text-3xl font-semibold">{value}</div>
+          <div className="mt-1 text-sm text-muted-foreground">{label}</div>
+        </div>
+      );
+    }
+
+    function Section({ id, title, kicker, children }) {
+      return (
+        <section id={id} className="relative mx-auto max-w-6xl px-4 py-16">
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              {kicker && (
+                <p className="mb-2 text-sm uppercase tracking-widest text-indigo-600/90">{kicker}</p>
+              )}
+              <h2 className="text-2xl font-semibold sm:text-3xl">{title}</h2>
+            </div>
+          </div>
+          {children}
+        </section>
+      );
+    }
+
+    function Nav() {
+      return (
+        <header className="sticky top-0 z-40 w-full border-b bg-white/70 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+            <a href="#home" className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded bg-indigo-600" />
+              <span className="text-sm font-semibold">Hydrogel Auto‑Injector</span>
+            </a>
+            <nav className="hidden items-center gap-6 text-sm sm:flex">
+              <a className="hover:text-indigo-600" href="#problem">Problem</a>
+              <a className="hover:text-indigo-600" href="#solution">Solution</a>
+              <a className="hover:text-indigo-600" href="#mechanism">Mechanism</a>
+              <a className="hover:text-indigo-600" href="#specs">Specs</a>
+              <a className="hover:text-indigo-600" href="#safety">Safety</a>
+              <a className="hover:text-indigo-600" href="#team">Team</a>
+              <a className="hover:text-indigo-600" href="#contact">Contact</a>
+            </nav>
+            <a href="#contact"
+               className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700">
+              Request Demo
+            </a>
+          </div>
+        </header>
+      );
+    }
+
+    function Hero() {
+      return (
+        <section id="home" className="relative overflow-hidden border-b bg-gradient-to-b from-indigo-50 to-white">
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            <div className="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-indigo-200/50 blur-3xl" />
+            <div className="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-fuchsia-200/40 blur-3xl" />
+          </div>
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 sm:grid-cols-2 sm:py-28">
+            <div>
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <Badge>Capstone Project</Badge>
+                <Badge>Concept Prototype</Badge>
+              </div>
+              <h1 className="text-3xl font-semibold leading-tight sm:text-5xl">
+                Rapid, portable hydrogel delivery to support
+                <span className="text-indigo-600"> skeletal muscle regeneration</span>
+              </h1>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                We are developing a single‑use, <strong>auto‑injector‑style</strong> device that
+                deploys a biocompatible hydrogel scaffold into calf muscle injuries (strains,
+                contusions, lacerations) to reduce fibrosis and support organized tissue repair.
+                <em className="ml-1">For research and educational purposes; not for clinical use.</em>
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a href="#contact"
+                   className="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-medium text-white shadow hover:bg-indigo-700">
+                  Talk to the Team
+                </a>
+                <a href="#onepager"
+                   className="rounded-xl border px-5 py-3 text-sm font-medium hover:bg-indigo-50">
+                  Download One‑Pager (PDF)
+                </a>
+              </div>
+              <div className="mt-6 grid max-w-lg grid-cols-3 gap-3">
+                <Stat label="Target shelf life" value="12–18 mo" />
+                <Stat label="Use settings" value="Sports • EMS • Military" />
+                <Stat label="Injury grades" value="I–III (exploratory)" />
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-[4/5] w-full overflow-hidden rounded-3xl border bg-white shadow">
+                <div className="flex h-full items-center justify-center p-6">
+                  <div className="text-center">
+                    <div className="mx-auto mb-4 h-24 w-24 rounded-2xl border-4 border-indigo-600" />
+                    <p className="text-sm text-muted-foreground">Placeholder for device image / CAD render</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Problem() {
+      return (
+        <Section id="problem" title="The problem" kicker="Unmet clinical need">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-2xl border p-6">
+              <h3 className="text-lg font-semibold">Muscle injuries are common and costly</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Calf strains, contusions, and lacerations affect millions annually and frequently
+                lead to <strong>fibrotic scar</strong>, weakness, and re‑injury. Conservative care
+                (rest, ice, compression, elevation, physical therapy) manages symptoms but does not
+                actively guide regeneration.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-6">
+              <h3 className="text-lg font-semibold">Access & timing matter</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Definitive biologic interventions can be expensive and delayed. A field‑deployable
+                option that <em>bridges</em> the acute phase and promotes organized healing could
+                improve outcomes.
+              </p>
+            </div>
+          </div>
+        </Section>
+      );
+    }
+
+    function Solution() {
+      const bullets = [
+        {
+          title: "Single‑use auto‑injector format",
+          body: "Pre‑calibrated mechanism for consistent intramuscular delivery with optional audio guidance for lay responders.",
+        },
+        {
+          title: "Bioactive hydrogel scaffold",
+          body: "Injectable matrix forms in situ, creating a porous network to support cell infiltration, alignment, and nutrient diffusion.",
+        },
+        {
+          title: "Designed for acute use",
+          body: "Intended for deployment soon after injury to minimize hematoma dead‑space and disorganized collagen deposition.",
+        },
+        {
+          title: "Human‑centered ergonomics",
+          body: "Lightweight form factor, high‑visibility housing, and straightforward two‑step actuation.",
+        },
+      ];
+      return (
+        <Section id="solution" title="Our approach" kicker="Concept overview">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {bullets.map((b) => (
+              <div key={b.title} className="rounded-2xl border p-6">
+                <h3 className="text-base font-semibold">{b.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{b.body}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      );
+    }
+
+    function Mechanism() {
+      return (
+        <Section id="mechanism" title="How it works" kicker="Mechanism of action">
+          <div className="grid gap-8 sm:grid-cols-2">
+            <div className="rounded-2xl border p-6">
+              <ol className="space-y-3 text-sm">
+                <li><strong>1) Assess & position.</strong> The nozzle seats against skin over the injury locus; optional strain/pressure tip helps localize defect margins.</li>
+                <li><strong>2) Deploy hydrogel.</strong> Twin‑chamber cartridge mixes on actuation; shear‑thinning precursor flows, then gels in situ.</li>
+                <li><strong>3) Scaffold forms.</strong> Porous network fills voids, supports myocyte & satellite‑cell ingress, and permits oxygen/nutrient diffusion.</li>
+                <li><strong>4) Guided remodeling.</strong> Temporary matrix degrades as organized muscle architecture re‑establishes, aiming to reduce fibrotic scar.</li>
+              </ol>
+            </div>
+            <div className="rounded-2xl border p-6">
+              <h3 className="text-base font-semibold">Design intents</h3>
+              <ul className="mt-2 list-disc space-y-2 pl-5 text-sm">
+                <li>Biocompatibility and controlled degradation timeline</li>
+                <li>Porosity tuned for vascular and cellular infiltration</li>
+                <li>Rheology suitable for intramuscular injection</li>
+                <li>Potential anti‑fibrotic/anti‑inflammatory adjuncts (exploratory)</li>
+              </ul>
+            </div>
+          </div>
+        </Section>
+      );
+    }
+
+    function Specs() {
+      const rows = [
+        { k: "Form factor", v: "Single‑use auto‑injector concept" },
+        { k: "Target site", v: "Calf (gastrocnemius/soleus complex)" },
+        { k: "Dose logic", v: "Inputs: age • weight • severity (on‑device dial/mock UI)" },
+        { k: "Cartridge", v: "Dual‑chamber; mix‑on‑actuation; Luer‑lock internal" },
+        { k: "Needle", v: "IM length; retracting safety shroud" },
+        { k: "Shelf life", v: "12–18 months (target)" },
+        { k: "Operating temp", v: "Room temp; no cold‑chain (target)" },
+        { k: "Intended users", v: "Athletic trainers, EMS, field medics (training required)" },
+      ];
+      return (
+        <Section id="specs" title="Preliminary specifications" kicker="Prototype targets">
+          <div className="overflow-hidden rounded-2xl border">
+            <table className="w-full text-sm">
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.k} className="border-b last:border-none">
+                    <td className="w-1/3 bg-slate-50 px-4 py-3 font-medium">{r.k}</td>
+                    <td className="px-4 py-3">{r.v}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            All parameters are <strong>conceptual</strong> and subject to change as testing progresses.
+          </p>
+        </Section>
+      );
+    }
+
+    function Safety() {
+      return (
+        <Section id="safety" title="Safety & compliance" kicker="Important notes">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {[
+              { h: "Non‑clinical prototype", p: "Device is a student concept not cleared by FDA or other regulators." },
+              { h: "Training required", p: "Any human use would require formal training and IRB‑approved research protocols." },
+              { h: "Materials", p: "Hydrogel and components selected with biocompatibility in mind." },
+            ].map((c) => (
+              <div key={c.h} className="rounded-2xl border p-6">
+                <h3 className="text-base font-semibold">{c.h}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{c.p}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 rounded-xl bg-amber-50 p-4 text-amber-900">
+            <p className="text-xs">
+              Disclaimer: This site describes an academic concept. Information is not medical advice and the device is <strong>not</strong> available for clinical use.
+            </p>
+          </div>
+        </Section>
+      );
+    }
+
+    function Timeline() {
+      const steps = [
+        { t: "Design & planning", d: "Concept sketches, risk analysis, materials selection" },
+        { t: "Bench fabrication", d: "Cartridge prototypes, rheology + gelation testing" },
+        { t: "Ex‑vivo/phantom tests", d: "Flow, spread, and scaffold formation in tissue models" },
+        { t: "Preclinical pathway", d: "Animal models for safety and efficacy (future work)" },
+      ];
+      return (
+        <Section id="timeline" title="Project timeline" kicker="Where we are now">
+          <ol className="grid gap-4 sm:grid-cols-2">
+            {steps.map((s, i) => (
+              <li key={i} className="rounded-2xl border p-5">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white">{i + 1}</span>
+                  <span className="font-medium">{s.t}</span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+      );
+    }
+
+    function Team() {
+      return (
+        <Section id="team" title="Team" kicker="Who we are">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {[1, 2, 3].map((idx) => (
+              <div key={idx} className="rounded-2xl border p-6 text-center">
+                <div className="mx-auto h-16 w-16 rounded-full bg-slate-200" />
+                <h3 className="mt-3 text-sm font-semibold">Student Name {idx}</h3>
+                <p className="text-xs text-muted-foreground">BME • Role / Focus</p>
+                <div className="mt-3 flex justify-center gap-2 text-xs">
+                  <a className="underline" href="#">LinkedIn</a>
+                  <span>•</span>
+                  <a className="underline" href="#">Email</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      );
+    }
+
+    function FAQ() {
+      const items = [
+        { q: "Is this like an EpiPen?", a: "It uses an auto‑injector‑style form factor for rapid deployment, but it delivers a hydrogel scaffold aimed at supporting muscle repair—not epinephrine." },
+        { q: "What injuries are targeted?", a: "Calf muscle strains, contusions, and lacerations are our initial focus while we evaluate parameters across grades I–III." },
+        { q: "What evidence supports hydrogel scaffolds?", a: "Hydrogels have been studied for guiding tissue regeneration; our project explores a portable delivery concept tailored to muscle anatomy and biomechanics." },
+      ];
+      return (
+        <Section id="faq" title="FAQ" kicker="Common questions">
+          <div className="space-y-3">
+            {items.map((it) => (
+              <details key={it.q} className="rounded-2xl border p-4">
+                <summary className="cursor-pointer select-none text-sm font-medium">{it.q}</summary>
+                <p className="mt-2 text-sm text-muted-foreground">{it.a}</p>
+              </details>
+            ))}
+          </div>
+        </Section>
+      );
+    }
+
+    function Contact() {
+      return (
+        <Section id="contact" title="Get in touch" kicker="Collaboration & feedback">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <form onSubmit={(e) => e.preventDefault()} className="rounded-2xl border p-6" aria-label="Contact form">
+              <div className="grid gap-3">
+                <label className="text-sm">
+                  <span className="mb-1 block">Name</span>
+                  <input className="w-full rounded-xl border px-3 py-2" placeholder="Your name" />
+                </label>
+                <label className="text-sm">
+                  <span className="mb-1 block">Email</span>
+                  <input className="w-full rounded-xl border px-3 py-2" placeholder="you@school.edu" />
+                </label>
+                <label className="text-sm">
+                  <span className="mb-1 block">Message</span>
+                  <textarea className="min-h-[120px] w-full rounded-xl border px-3 py-2" placeholder="Tell us how you'd like to collaborate…" />
+                </label>
+                <button className="mt-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">Send</button>
+              </div>
+            </form>
+            <div className="rounded-2xl border p-6">
+              <h3 className="text-base font-semibold">Quick links</h3>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
+                <li><a className="underline" id="onepager" href="#">One‑Pager PDF</a> (placeholder)</li>
+                <li><a className="underline" href="#">Pitch Deck</a> (placeholder)</li>
+                <li><a className="underline" href="#">Design Brief</a> (placeholder)</li>
+              </ul>
+              <div className="mt-6 rounded-xl bg-slate-50 p-4 text-xs text-muted-foreground">
+                <p>
+                  University • Department • Course | Advisor(s) | © <span id="year"></span> — Academic use only
+                </p>
+              </div>
+            </div>
+          </div>
+        </Section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="border-t">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row">
+            <p className="text-xs text-muted-foreground">This page is a student project concept. Not for diagnostic or therapeutic use.</p>
+            <nav className="flex items-center gap-4 text-xs">
+              <a className="hover:underline" href="#faq">FAQ</a>
+              <a className="hover:underline" href="#safety">Safety</a>
+              <a className="hover:underline" href="#contact">Contact</a>
+            </nav>
+          </div>
+        </footer>
+      );
+    }
+
+    function CapstoneLanding() {
+      React.useEffect(() => {
+        const y = document.getElementById("year");
+        if (y) y.textContent = String(new Date().getFullYear());
+      }, []);
+      return (
+        <div>
+          <Nav />
+          <Hero />
+          <Problem />
+          <Solution />
+          <Mechanism />
+          <Specs />
+          <Safety />
+          <Timeline />
+          <Team />
+          <FAQ />
+          <Contact />
+          <Footer />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<CapstoneLanding />);
+  </script>
+</body>
+</html>
