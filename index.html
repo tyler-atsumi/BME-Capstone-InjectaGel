@@ -238,23 +238,54 @@
         { k: "Intended users", v: "Athletic trainers, EMS, field medics (training required)" },
       ];
       return (
-        <Section id="specs" title="Preliminary specifications" kicker="Prototype targets">
-          <div className="overflow-hidden rounded-2xl border">
-            <table className="w-full text-sm">
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.k} className="border-b last:border-none">
-                    <td className="w-1/3 bg-slate-50 px-4 py-3 font-medium">{r.k}</td>
-                    <td className="px-4 py-3">{r.v}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">
-            All parameters are <strong>conceptual</strong> and subject to change as testing progresses.
-          </p>
-        </Section>
+      <Section id="specs" title="Preliminary specifications" kicker="Prototype targets">
+  <div className="overflow-hidden rounded-2xl border">
+    <table className="w-full text-sm">
+      <tbody>
+        <tr>
+          <td className="w-1/3 bg-slate-50 px-4 py-3 font-medium">Biodegradability</td>
+          <td className="px-4 py-3">Scaffold degrades safely within 2–6 months in vivo, leaving no toxic or inflammatory byproducts.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Biocompatibility</td>
+          <td className="px-4 py-3">>90% cell viability in vitro, <10% increase in pro-inflammatory cytokines to ensure safe integration.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Mechanical Properties</td>
+          <td className="px-4 py-3">Elastic modulus of 10–60 kPa, approximating skeletal muscle to support contraction and regeneration.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Porosity & Architecture</td>
+          <td className="px-4 py-3">≥80% interconnected porosity, aligned pores 50–150 µm for nutrient diffusion and myocyte infiltration.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Device Ergonomics</td>
+          <td className="px-4 py-3">Injector ≤250 g, operable with one hand, requiring ≤20 N of force to deploy.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Dosing Precision</td>
+          <td className="px-4 py-3">Delivery accuracy of ±2 kPa at fixed 2 mm depth, unlocking only in tear zones (<15 kPa).</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Shelf Life</td>
+          <td className="px-4 py-3">Stable for 12–18 months at 4 °C without >10% performance loss.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Ease of Use</td>
+          <td className="px-4 py-3">≥90% successful first-use rate by untrained users after ≤10 minutes of instruction.</td>
+        </tr>
+        <tr>
+          <td className="bg-slate-50 px-4 py-3 font-medium">Cost & Accessibility</td>
+          <td className="px-4 py-3">Target ≤$150 per unit at manufacturing scale to ensure affordability in sports, military, and EMS.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p className="mt-3 text-xs text-muted-foreground">
+    All parameters are conceptual and subject to change as testing progresses.
+  </p>
+</Section>
+
       );
     }
 
