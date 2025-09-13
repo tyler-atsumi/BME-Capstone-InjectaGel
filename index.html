@@ -340,22 +340,45 @@
 
     function Team() {
       return (
-        <Section id="team" title="Team" kicker="Who we are">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {[1, 2, 3].map((idx) => (
-              <div key={idx} className="rounded-2xl border p-6 text-center">
-                <div className="mx-auto h-16 w-16 rounded-full bg-slate-200" />
-                <h3 className="mt-3 text-sm font-semibold">Student Name {idx}</h3>
-                <p className="text-xs text-muted-foreground">BME • Role / Focus</p>
-                <div className="mt-3 flex justify-center gap-2 text-xs">
-                  <a className="underline" href="#">LinkedIn</a>
-                  <span>•</span>
-                  <a className="underline" href="#">Email</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
+     <Section id="team" title="Team" kicker="Who we are">
+  <div className="grid gap-6 sm:grid-cols-3">
+
+    <div className="rounded-2xl border p-6 text-center">
+      <div className="mx-auto h-16 w-16 rounded-full bg-slate-200" />
+      <h3 className="mt-3 text-sm font-semibold">Myles Anderson</h3>
+      <p className="text-xs text-muted-foreground">Biomedical Design & Research Lead</p>
+      <div className="mt-3 flex justify-center gap-2 text-xs">
+        <a className="underline" href="https://www.linkedin.com/in/myles-anderson-04443b233/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span>•</span>
+        <a className="underline" href="mailto:a.myles@wustl.edu">Email</a>
+      </div>
+    </div>
+
+    <div className="rounded-2xl border p-6 text-center">
+      <div className="mx-auto h-16 w-16 rounded-full bg-slate-200" />
+      <h3 className="mt-3 text-sm font-semibold">Tyler Atsumi</h3>
+      <p className="text-xs text-muted-foreground">Strategy & Translation Lead</p>
+      <div className="mt-3 flex justify-center gap-2 text-xs">
+        <a className="underline" href="https://www.linkedin.com/in/tyler-atsumi/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span>•</span>
+        <a className="underline" href="mailto:a.sotaro@wustl.edu">Email</a>
+      </div>
+    </div>
+
+    <div className="rounded-2xl border p-6 text-center">
+      <div className="mx-auto h-16 w-16 rounded-full bg-slate-200" />
+      <h3 className="mt-3 text-sm font-semibold">Alex Kemp</h3>
+      <p className="text-xs text-muted-foreground">Operations & Client Engagement Lead</p>
+      <div className="mt-3 flex justify-center gap-2 text-xs">
+        <a className="underline" href="https://www.linkedin.com/in/alex-kemp-67b748256/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span>•</span>
+        <a className="underline" href="mailto:a.kemp@wustl.edu">Email</a>
+      </div>
+    </div>
+
+  </div>
+</Section>
+
       );
     }
 
